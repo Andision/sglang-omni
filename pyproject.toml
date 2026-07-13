@@ -16,6 +16,7 @@ dependencies = [
     "numpy>=1.24.0",          # Array operations
     "pydantic>=2.0.0",        # Data validation and serialization
     "PyYAML>=6.0",            # YAML config parsing
+    "pybase64>=1.4.0",        # Fast base64 decoding for inline media payloads
     "torch==2.11.0",          # PyTorch for tensor operations
     "torchvision==0.26.0",    # torchvision for vision processor, pinned version based on torch 2.11.0
     "accelerate>=0.27.0",     # init_empty_weights for meta initialization
@@ -71,7 +72,12 @@ dependencies = [
     "gradio>=4.0.0",
     # Ming-Omni
     "diffusers==0.37.0",      # Align with sglang 0.5.12.post1 hard pin (diffusers==0.37.0)
-    "x-transformers",          # Ming talker rotary embeddings
+    "x-transformers",          # Ming talker rotary embeddings + CosyVoice3 DiT vocoder
+    # CosyVoice3 vendored frontend/vocoder
+    "hyperpyyaml",            # CosyVoice3 vendored frontend/vocoder
+    "inflect",                # CosyVoice3 vendored frontend/vocoder
+    "einops",                 # CosyVoice3 DiT flow (cosyvoice/flow/DiT/dit.py)
+    "regex",                  # CosyVoice3 frontend_utils (was only transitive via transformers)
 ]
 
 [project.scripts]
@@ -99,3 +105,5 @@ include = ["sglang_omni*"]
 [tool.setuptools.package-data]
 "sglang_omni.models.fishaudio_s2_pro" = ["fish_speech/configs/*.yaml"]
 "sglang_omni.models.higgs_tts" = ["_vendored/*.json"]
+# Ship the vendored-code attribution/license NOTICE alongside the CosyVoice3 + Matcha-TTS source.
+"sglang_omni.models.cosyvoice3" = ["NOTICE"]
